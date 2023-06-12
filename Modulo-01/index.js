@@ -4,9 +4,10 @@
 - Obter o endereço do usuário pelo ID
  */
 // importamos um módulo interno do nodeJs
+
 const util = require("util");
 
-const getAddressAsync = util.promisify(getAddress);
+// const getAddressAsync = util.promisify(getAddress);
 
 function getUser() {
   // quando der algum problema -> reject(ERRO)
@@ -35,53 +36,77 @@ function getPhone(idUser) {
   });
 }
 
-function getAddress(idUser, callback) {
-  setTimeout(() => {
-    return callback(null, {
-      street: "Rua do morador",
-      number: 123,
-    });
-  }, 2000);
+function getAddress(idUser) {
+  return new Promise(function (resolve, reject) {
+    setTimeout(() => {
+      resolve({
+        street: "Rua do morador",
+        number: 123,
+      });
+    }, 2000);
+  });
 }
 
-const userPromise = getUser();
-// para manipular o sucesso usamos a função .then
-// para maniular erros, usamos o .catch
-// user -> phone -> phone
-userPromise
-  .then(function (user) {
-    return getPhone(user.id).then(function resolvePhne(result) {
-      return {
-        user: {
-          name: user.name,
-          id: user.id,
-        },
-        phone: result,
-      };
-    });
-  })
-  .then(function (result) {
-    const address = getAddressAsync(result.user.id);
-    return address.then(function resolveAddress(resultAddress) {
-      return {
-        user: result.user,
-        phone: result.phone,
-        address: resultAddress,
-      };
-    });
-  })
-  .then(function (result) {
+// 1° passo adicionar a palava async -> automaticamente ela retornará uma Promise
+
+async function main() {
+  try {
+    const user = await getUser();
+    const phone = await getPhone(user.id);
+    const address = await getAddress(user.id);
+
     console.log(`
-      Nome: ${result.user.name}
-      Endereço: ${result.address.street}, ${result.address.number}
-      Telefone: (${result.phone.ddd}) ${result.phone.number}
+    Nome: ${user.name},
+    Telefone: (${phone.ddd}) ${phone.number},
+    Endereço: ${address.street}, ${address.number}
     `);
-  })
+  } catch (error) {
+    console.error("DEU RUIM", error);
+  }
+}
 
-  .catch(function (error) {
-    console.error("Deu ruim", error);
-  });
+main();
 
+// SEGUNDO EX
+// const userPromise = getUser();
+// // para manipular o sucesso usamos a função .then
+// // para maniular erros, usamos o .catch
+// // user -> phone -> phone
+// userPromise
+//   .then(function (user) {
+//     return getPhone(user.id).then(function resolvePhne(result) {
+//       return {
+//         user: {
+//           name: user.name,
+//           id: user.id,
+//         },
+//         phone: result,
+//       };
+//     });
+//   })
+//   .then(function (result) {
+//     const address = getAddressAsync(result.user.id);
+//     return address.then(function resolveAddress(resultAddress) {
+//       return {
+//         user: result.user,
+//         phone: result.phone,
+//         address: resultAddress,
+//       };
+//     });
+//   })
+//   .then(function (result) {
+//     console.log(`
+//       Nome: ${result.user.name}
+//       Endereço: ${result.address.street}, ${result.address.number}
+//       Telefone: (${result.phone.ddd}) ${result.phone.number}
+//     `);
+//   })
+
+//   .catch(function (error) {
+//     console.error("Deu ruim", error);
+//   });
+
+// PRIMEIRO EX:
 // function userData(erro, user) {
 //   console.log("user", user);
 // }
