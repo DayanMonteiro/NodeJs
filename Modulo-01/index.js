@@ -51,15 +51,22 @@ function getAddress(idUser) {
 
 async function main() {
   try {
+    console.time("medida-promise"); // inicia a medida de tempo de execução de uma função
     const user = await getUser();
-    const phone = await getPhone(user.id);
-    const address = await getAddress(user.id);
+    // const phone = await getPhone(user.id);
+    // const address = await getAddress(user.id);
+
+    const result = await Promise.all([getPhone(user.id), getAddress(user.id)]);
+
+    const phone = result[0];
+    const address = result[1];
 
     console.log(`
     Nome: ${user.name},
     Telefone: (${phone.ddd}) ${phone.number},
     Endereço: ${address.street}, ${address.number}
     `);
+    console.timeEnd("medida-promise"); // finaliza a medida de tempo de execução de uma função
   } catch (error) {
     console.error("DEU RUIM", error);
   }
