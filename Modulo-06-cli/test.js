@@ -10,6 +10,9 @@ const DEFAULT_REGISTERED_ITEM = {
 
 // inicializando uma switch de testes
 describe("Hero manipulation switch", () => {
+  before(async () => {
+    await database.register(DEFAULT_REGISTERED_ITEM);
+  });
   it("must research a hero using archives", async () => {
     const expected = DEFAULT_REGISTERED_ITEM;
     const [result] = await database.list(expected.id);
@@ -17,9 +20,11 @@ describe("Hero manipulation switch", () => {
     deepEqual(result, expected);
   });
 
-  // it("must register a hero using files", async () => {
-  //   const expected = DEFAULT_REGISTERED_ITEM;
+  it("must register a hero using files", async () => {
+    const expected = DEFAULT_REGISTERED_ITEM;
+    const result = await database.register(DEFAULT_REGISTERED_ITEM);
+    const [actual] = await database.list(DEFAULT_REGISTERED_ITEM.id);
 
-  //   ok(null, expected);
-  // });
+    deepEqual(actual, expected);
+  });
 });
