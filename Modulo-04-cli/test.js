@@ -9,7 +9,7 @@ const DEFAULT_REGISTERED_ITEM = {
 };
 
 const DEFAULT_UPDATE_ITEM = {
-  nome: "Lanterna Verde",
+  name: "Lanterna Verde",
   power: "Energia do anel",
   id: 2,
 };
