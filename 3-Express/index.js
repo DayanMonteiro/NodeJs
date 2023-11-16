@@ -6,6 +6,8 @@ const path = require("path");
 
 const basePath = path.join(__dirname, "templates");
 
+const users = require("./users");
+
 // read the body
 app.use(
   express.urlencoded({
@@ -14,6 +16,9 @@ app.use(
 );
 
 app.use(express.json());
+
+// static files
+app.use(express.static("public"));
 
 var checkAuth = function (req, res, next) {
   req.authStatus = true;
@@ -28,24 +33,7 @@ var checkAuth = function (req, res, next) {
 
 app.use(checkAuth);
 
-app.get("/users/add", (req, res) => {
-  res.sendFile(`${basePath}/userform.html`);
-});
-
-app.post("/users/save", (req, res) => {
-  console.log(req.body);
-  const name = req.body.name;
-  const age = req.body.age;
-
-  console.log(name);
-  console.log(age);
-});
-
-app.get("/users/:id", (req, res) => {
-  console.log(`Carregando usuário: ${req.params.id}`);
-
-  res.sendFile(`${basePath}/users.html`);
-});
+app.use("/users", users);
 
 app.get("/", (req, res) => {
   res.sendFile(`${basePath}/index.html`);
