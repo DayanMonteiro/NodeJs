@@ -2,6 +2,12 @@
 <p>O nome do usuário é {{user.name}} {{user.surname}} </p>
 <h2>{{word}}</h2>
 
+{{#if approved}}
+<p>Parabéns, o seu cadastro foi aprovado!</p>
+{{else}}
+<p>O seu cadastro precisa de aprovação para acesso total ao sistema</p>
+{{/if}}
+
 {{#if auth}}
 <p>Você está autenticado, <a href="/dashboard">clique aqui</a> para acessar a área de membros!</p>
 {{/if}}
