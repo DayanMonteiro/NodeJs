@@ -6,6 +6,10 @@ const app = express();
 app.engine("handlebars", exphbs.engine());
 app.set("view engine", "handlebars");
 
+app.get("/dashboard", (req, res) => {
+  res.render("dashboard");
+});
+
 app.get("/", (req, res) => {
   const user = {
     name: "Dayan",
@@ -13,7 +17,10 @@ app.get("/", (req, res) => {
   };
 
   const word = "Teste";
-  res.render("home", { user: user, word: word });
+
+  const auth = true;
+
+  res.render("home", { user: user, word, auth });
 });
 
 app.listen(3000, () => {
