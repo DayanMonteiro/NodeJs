@@ -3,7 +3,11 @@ const exphbs = require("express-handlebars");
 
 const app = express();
 
-app.engine("handlebars", exphbs.engine());
+const hbs = exphbs.create({
+  partialsDir: ["views/partials/"],
+});
+
+app.engine("handlebars", hbs.engine);
 app.set("view engine", "handlebars");
 
 app.get("/dashboard", (req, res) => {
@@ -21,6 +25,31 @@ app.get("/post", (req, res) => {
   };
 
   res.render("blogpost", { post });
+});
+
+app.get("/blog", function (req, res) {
+  const posts = [
+    {
+      title: "Aprender Node.js",
+      category: "Node.js",
+      body: "Node.js é muito utilizado na programação hoje em dia",
+      comments: 4,
+    },
+    {
+      title: "PHP ainda vale a pena?",
+      category: "PHP",
+      body: "",
+      comments: 12,
+    },
+    {
+      title: "Os segredos de JavaScript",
+      category: "JavaScript",
+      body: "",
+      comments: 5,
+    },
+  ];
+
+  res.render("blog", { posts });
 });
 
 app.get("/", (req, res) => {
