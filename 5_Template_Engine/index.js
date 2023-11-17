@@ -12,6 +12,17 @@ app.get("/dashboard", (req, res) => {
   res.render("dashboard", { items });
 });
 
+app.get("/post", (req, res) => {
+  const post = {
+    title: "Aprender Node Js",
+    category: "Javascript",
+    body: "Este artigo vai te ajudar a aprender Node.Js...",
+    comments: 105,
+  };
+
+  res.render("blogpost", { post });
+});
+
 app.get("/", (req, res) => {
   const user = {
     name: "Dayan",
