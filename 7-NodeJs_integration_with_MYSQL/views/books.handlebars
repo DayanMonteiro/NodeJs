@@ -2,6 +2,11 @@
 <div class="books-container">
   <a href="/">Adicionar livro</a>
   {{#each books}}
-    <div>#{{this.id}} - <span class="bold">{{this.title}}</span> - {{this.pageqty}} páginas</div>
+  <div>#{{this.id}} -
+    <span class="bold">
+      <a href="/books/{{this.id}}">
+        {{this.title}}</span> - {{this.pageqty}} páginas
+    </a>
+  </div>
   {{/each}}
 </div>
