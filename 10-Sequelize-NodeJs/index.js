@@ -41,6 +41,22 @@ app.post("/users/create", async (req, res) => {
   res.redirect("/");
 });
 
+app.get("/users/:id", async (req, res) => {
+  const id = req.params.id;
+
+  const user = await User.findOne({
+    raw: true,
+    where: {
+      id: id,
+    },
+  });
+  // .then((user) => {
+  //   console.log(user);
+  res.render("userview", { user: user });
+  // })
+  // .catch((err) => console.log(err));
+});
+
 app.get("/", async (req, res) => {
   const users = await User.findAll({ raw: true });
 
