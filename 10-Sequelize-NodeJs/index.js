@@ -50,11 +50,18 @@ app.get("/users/:id", async (req, res) => {
       id: id,
     },
   });
-  // .then((user) => {
-  //   console.log(user);
   res.render("userview", { user: user });
-  // })
-  // .catch((err) => console.log(err));
+});
+
+app.post("/users/delete/:id", async (req, res) => {
+  const id = req.params.id;
+
+  await User.destroy({
+    where: {
+      id: id,
+    },
+  });
+  res.redirect("/");
 });
 
 app.get("/", async (req, res) => {
