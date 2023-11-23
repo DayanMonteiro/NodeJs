@@ -4,6 +4,8 @@ const conn = require("./db/conn");
 
 const app = express();
 
+const User = require("./models/User");
+
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
 
@@ -21,4 +23,9 @@ app.get("/", function (req, res) {
   res.render("home");
 });
 
-app.listen(3000);
+conn
+  .sync()
+  .then(() => {
+    app.listen(3000);
+  })
+  .catch((err) => console.log(err));
