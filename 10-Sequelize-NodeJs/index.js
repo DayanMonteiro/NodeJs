@@ -5,6 +5,7 @@ const conn = require("./db/conn");
 const app = express();
 
 const User = require("./models/User");
+const Address = require("./models/Address");
 
 app.engine("handlebars", exphbs());
 app.set("view engine", "handlebars");
@@ -95,8 +96,8 @@ app.post("/users/update", (req, res) => {
     newsletter,
   };
 
-  console.log(req.body);
-  console.log(userData);
+  // console.log(req.body);
+  // console.log(userData);
 
   User.update(userData, {
     where: {
@@ -110,15 +111,35 @@ app.post("/users/update", (req, res) => {
     .catch((err) => console.log(err));
 });
 
+app.post("/address/create", async (req, res) => {
+  const UserId = req.body.UserId;
+  const street = req.body.street;
+  const number = req.body.number;
+  const city = req.body.city;
+
+  const address = {
+    street,
+    number,
+    city,
+    UserId,
+  };
+
+  await Address.create(address)
+    .then(res.redirect(`/users/edit/${UserId}`))
+    .catch((err) => console.log(err));
+});
+
 app.get("/", async (req, res) => {
   const users = await User.findAll({ raw: true });
 
-  console.log("users home", users);
+  // console.log("users home", users);
 
   res.render("home", { users: users });
 });
 
 conn
+  // apaga os dados da tabela
+  // .sync({ force: true })
   .sync()
   .then(() => {
     app.listen(3000);
