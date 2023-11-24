@@ -133,6 +133,19 @@ app.post("/address/create", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
+app.post("/address/delete/", async (req, res) => {
+  const id = req.body.id;
+
+  // destroy é o método de exclusão
+  await Address.destroy({
+    where: {
+      id: id,
+    },
+  })
+    .then(res.redirect("/"))
+    .catch((err) => console.log(err));
+});
+
 app.get("/", async (req, res) => {
   const users = await User.findAll({ raw: true });
 
