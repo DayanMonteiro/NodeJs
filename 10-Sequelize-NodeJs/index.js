@@ -76,6 +76,40 @@ app.get("/users/edit/:id", async (req, res) => {
   res.render("useredit", { user: user });
 });
 
+app.post("/users/update", (req, res) => {
+  const id = req.body.id;
+  const name = req.body.name;
+  const occupation = req.body.occupation;
+  let newsletter = req.body.newsletter;
+
+  if (newsletter === "on") {
+    newsletter = true;
+  } else {
+    newsletter = false;
+  }
+
+  const userData = {
+    id,
+    name,
+    occupation,
+    newsletter,
+  };
+
+  console.log(req.body);
+  console.log(userData);
+
+  User.update(userData, {
+    where: {
+      id: id,
+    },
+  })
+    .then((user) => {
+      console.log(user);
+      res.redirect("/");
+    })
+    .catch((err) => console.log(err));
+});
+
 app.get("/", async (req, res) => {
   const users = await User.findAll({ raw: true });
 
