@@ -33,18 +33,19 @@
   margin-bottom: 1em;
 }
 
-form {
+.container form {
   max-width: 300px;
 }
 
 .form-control {
   display: flex;
   flex-direction: column;
+  margin-bottom: 1em;
 }
 
 .form-control label {
   font-weight: bold;
-  margin-bottom: 0.4em;
+  margin-bottom: 0.3em;
 }
 
 .form-control input,
@@ -52,6 +53,17 @@ form {
   border: 1px solid #fff;
   padding: 5px;
   margin-bottom: 1em;
+}
+
+form input[type="submit"],
+btn {
+  background-color: #000;
+  color: #fff;
+  padding: 0.7em 1.5em;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 }
 
 .btn {
@@ -85,7 +97,7 @@ form {
 }
 
 .product-page img {
-  max-width: 250px;
+  max-width: 100%;
   margin-bottom: 1em;
 }
 
