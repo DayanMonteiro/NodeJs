@@ -104,3 +104,7 @@ btn {
 .product-page p {
   margin-bottom: 1em;
 }
+
+textarea {
+  min-height: 100px;
+}
