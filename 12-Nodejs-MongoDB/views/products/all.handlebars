@@ -4,9 +4,16 @@
   {{#each products}}
     <div class="product">
       <img src={{this.image}} alt={{this.name}} />
+
       <h3>{{this.name}}</h3>
+
       <p>{{this.price}}</p>
+
       <p>{{this.description}}</p>
+
+      <div class="actions" >
+        <a href="/products/{{this._id}}">Detalhes</a>
+      </div>
     </div>
 
   {{/each}}
