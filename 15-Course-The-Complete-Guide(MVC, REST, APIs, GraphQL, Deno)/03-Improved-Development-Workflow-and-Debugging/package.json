@@ -1,0 +1,13 @@
+{
+  "name": "03-improved-development-workflow-and-debugging",
+  "version": "1.0.0",
+  "description": "Complete NodeJs Guide",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "start-server": "node app.js"
+  },
+  "author": "Dayan Monteiro",
+  "license": "ISC"
+}
