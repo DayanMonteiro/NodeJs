@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
     res.write("</html>");
     return res.end();
   }
-  // Send a HTML response with some "Page not found text
+
   if (url === "/create-user") {
     const body = [];
     req.on("data", (chunk) => {
@@ -28,7 +28,7 @@ const server = http.createServer((req, res) => {
     });
     req.on("end", () => {
       const parsedBody = Buffer.concat(body).toString();
-      console.log(parsedBody.split("=")[1]); // username=whatever-the-user-entered
+      console.log(parsedBody.split("=")[1]);
     });
     res.statusCode = 302;
     res.setHeader("Location", "/");
